@@ -1,0 +1,91 @@
+id,feature,layers,priority,area,rank
+FLS-001,Product database,BE+DB,P0,Area Database & Distributed State,
+FLS-002,Inventory database,BE+DB,P0,Area Database & Distributed State,
+FLS-003,Reservation store,BE+DB,P0,Area Database & Distributed State,
+FLS-004,Order database,BE+DB,P0,Area Database & Distributed State,
+FLS-005,Payment records,BE+DB,P0,Area Database & Distributed State,
+FLS-006,Campaign database,BE+DB,P0,Area Database & Distributed State,
+FLS-011,Atomic transactions,BE+DB,P0,Area Database & Distributed State,
+FLS-013,Sale lifecycle management,BE,P0,Area Flash Sale Core,
+FLS-016,Sale state machine,BE,P0,Area Flash Sale Core,
+FLS-019,Sale-specific pricing,BE,P0,Area Flash Sale Core,
+FLS-039,Real-time stock tracking,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-044,Atomic stock reservation,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-045,Reservation expiry,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-046,Reservation release,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-047,Oversell prevention,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-048,Negative-stock prevention,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-049,Stock reconciliation,BE+DB,P0,Area Inventory Reservation & Stock,
+FLS-053,Percentage discount,BE+DB,P1,Area Pricing & Promotions,
+FLS-062,Price-floor validation,BE+DB,P1,Area Pricing & Promotions,
+FLS-065,Purchase admission,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-066,Queue/waiting room,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-067,Per-user purchase limit,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-069,Atomic checkout,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-070,Idempotency keys,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-071,Duplicate-order prevention,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-075,Reservation tokens,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-076,Checkout timeout,BE,P0,Area High-Concurrency Purchase Flow,
+FLS-078,Virtual waiting room,BE,P1,Area Queue,
+FLS-079,Queue position,BE,P1,Area Queue,
+FLS-080,Queue tokens,BE,P1,Area Queue,
+FLS-085,Per-IP limits,BE,P1,Area Queue,
+FLS-090,Order creation,BE+DB,P0,Area Orders & Payments,
+FLS-091,Order state machine,BE+DB,P0,Area Orders & Payments,
+FLS-092,Payment initiation,BE+DB,P0,Area Orders & Payments,
+FLS-093,Payment confirmation,BE+DB,P0,Area Orders & Payments,
+FLS-096,Payment idempotency,BE+DB,P0,Area Orders & Payments,
+FLS-097,Order expiration,BE+DB,P0,Area Orders & Payments,
+FLS-106,Reservation API,BE,P0,Area Backend APIs & Services,
+FLS-108,Checkout API,BE,P0,Area Backend APIs & Services,
+FLS-116,Live stock dashboard,FE+BE,P1,Area Frontend & Operations Console,
+FLS-008,User database,BE+DB,P0,Area Database & Distributed State,33
+FLS-010,Distributed locks,BE+DB,P0,Area Database & Distributed State,3
+FLS-012,Optimistic concurrency,BE+DB,P0,Area Database & Distributed State,4
+FLS-014,Sale start/end scheduling,BE,P0,Area Flash Sale Core,30
+FLS-020,Original-price preservation,BE,P0,Area Flash Sale Core,24
+FLS-021,Sale-price validation,BE,P0,Area Flash Sale Core,25
+FLS-024,Timezone handling,BE,P0,Area Flash Sale Core,32
+FLS-025,Scheduled activation,BE,P0,Area Flash Sale Core,31
+FLS-026,User authentication,FE+BE+DB,P1,Area User & Customer Management,34
+FLS-032,Per-user limits,FE+BE+DB,P1,Area User & Customer Management,37
+FLS-036,Blocked-user rules,FE+BE+DB,P1,Area User & Customer Management,38
+FLS-037,Account lockout,FE+BE+DB,P1,Area User & Customer Management,35
+FLS-038,Session management,FE+BE+DB,P1,Area User & Customer Management,36
+FLS-040,Available quantity,BE+DB,P0,Area Inventory Reservation & Stock,19
+FLS-041,Reserved quantity,BE+DB,P0,Area Inventory Reservation & Stock,20
+FLS-042,Sold quantity,BE+DB,P0,Area Inventory Reservation & Stock,21
+FLS-050,SKU-level inventory,BE+DB,P0,Area Inventory Reservation & Stock,22
+FLS-054,Fixed discount,BE+DB,P1,Area Pricing & Promotions,27
+FLS-057,Coupon validation,BE+DB,P1,Area Pricing & Promotions,28
+FLS-058,Promotion stacking rules,BE+DB,P1,Area Pricing & Promotions,29
+FLS-061,Maximum discount limits,BE+DB,P1,Area Pricing & Promotions,26
+FLS-068,Per-SKU purchase limit,BE,P0,Area High-Concurrency Purchase Flow,12
+FLS-072,Request throttling,BE,P0,Area High-Concurrency Purchase Flow,14
+FLS-073,Burst handling,BE,P0,Area High-Concurrency Purchase Flow,15
+FLS-077,Payment timeout handling,BE,P0,Area High-Concurrency Purchase Flow,11
+FLS-081,Queue expiration,BE,P1,Area Queue,
+FLS-082,Fair queue ordering,BE,P1,Area Queue,
+FLS-084,Randomized admission,BE,P1,Area Queue,
+FLS-086,Per-account limits,BE,P1,Area Queue,
+FLS-094,Payment failure handling,BE+DB,P0,Area Orders & Payments,6
+FLS-095,Payment retry,BE+DB,P0,Area Orders & Payments,7
+FLS-098,Order cancellation,BE+DB,P0,Area Orders & Payments,10
+FLS-099,Refund initiation,BE+DB,P0,Area Orders & Payments,8
+FLS-100,Refund status,BE+DB,P0,Area Orders & Payments,9
+FLS-101,Inventory-to-order consistency,BE+DB,P0,Area Orders & Payments,5
+FLS-103,Flash-sale API,BE,P0,Area Backend APIs & Services,39
+FLS-104,Product API,BE,P0,Area Backend APIs & Services,43
+FLS-105,Inventory API,BE,P0,Area Backend APIs & Services,40
+FLS-109,Order API,BE,P0,Area Backend APIs & Services,41
+FLS-111,Queue API,BE,P0,Area Backend APIs & Services,42
+FLS-115,Flash-sale dashboard,FE+BE,P1,Area Frontend & Operations Console,50
+FLS-123,Order monitoring,FE+BE,P1,Area Frontend & Operations Console,49
+FLS-125,Real-time counters,FE+BE,P1,Area Frontend & Operations Console,47
+FLS-126,Low-stock alerts,FE+BE,P1,Area Frontend & Operations Console,48
+FLS-127,Prometheus metrics,BE,P1,Area Notifications,
+FLS-129,Structured logs,BE,P1,Area Notifications,
+FLS-135,Oversell incidents,BE,P1,Area Notifications,
+FLS-139,Load testing,BE,P0,Area Reliability,
+FLS-141,Chaos testing,BE,P0,Area Reliability,
+FLS-145,Cache failure handling,BE,P0,Area Reliability,

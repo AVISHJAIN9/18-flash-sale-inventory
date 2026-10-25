@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../14-tracing-backend"
+		},
+		{
+			"path": "../../15-llm-inference-scheduler"
+		},
+		{
+			"path": "../../16-rate-limit-gateway"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../19-usage-billing-engine"
+		}
+	]
+}

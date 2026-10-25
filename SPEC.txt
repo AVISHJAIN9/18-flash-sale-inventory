@@ -1,0 +1,27 @@
+### P18 FLASH SALE — a platform whose promise is: never oversell, never double-charge, stay fair under a stampede.
+Architecture: PostgreSQL 16 = source of truth; Redis 7 = hot path (atomic stock counters via Lua, waiting-room state, rate limiters, idempotency fast path, locks with fencing). Core invariant checked continuously: per SKU available + reserved + sold == total_allocated and available >= 0 (DB CHECK AND logic) with a reconciliation job that recomputes from the ledger and records drift in an audit row. Reservation = atomic Lua decrement + durable Postgres reservation row with expiry; if Redis is lost, fall back to UPDATE ... SET available = available - :q WHERE available >= :q or reject safely; never guess. Money in integer minor units or Decimal, never floats; UTC stored. Payments: PaymentProvider interface with a real separate HTTP "gateway-sandbox" service in compose (intents, async webhooks, failures, duplicate webhooks) = LOCAL_EQUIVALENT. Storefront + admin console in React with live counters via SSE from real events.
+Invariants: oversell = 0 under any concurrency; one idempotency key -> at most one order and one charge even under 50 simultaneous submissions; order and payment state machines reject illegal transitions (table-driven over every pair); webhooks delivered twice or out of order leave a consistent state; per-user and per-IP limits hold under concurrency; final price >= price floor and original price is preserved; reservation expiry returns stock exactly once and a payment arriving after expiry follows a documented policy (re-reserve if possible, else auto-refund).
+
+Phase 2 Invariants & Scenarios:
+- Distributed lock holders carry fencing tokens and a stale holder's writes are rejected;
+- Optimistic concurrency conflicts are retried with bounded attempts and never lose an update;
+- Available/reserved/sold quantities always sum correctly (invariant sampled during concurrency tests);
+- Sale-price >= floor, max total discount <= cap, original price preserved and returned;
+- Stacking rules honored (no coupon double-use under concurrency);
+- Scheduled activation fires within a documented tolerance, tested across a DST boundary with an injected clock plus one real-time test;
+- Account lockout uses exponential cool-down;
+- Sessions rotate and revoke;
+- Payment retry is idempotent (one charge);
+- Refunds are idempotent and never exceed the captured amount;
+- Inventory-to-order consistency job detects an intentionally corrupted row;
+- Per-SKU, per-account and per-IP limits hold under concurrency;
+- Randomized admission is statistically uniform over N>=10,000 draws;
+- Cache (Redis) failure falls back to the Postgres path or rejects safely.
+
+Scenarios:
+- S18-01: rerun at full scale with the new limits
+- S18-08: scheduled activation tolerance + DST/timezone
+- S18-09: load test with measured orders/sec and checkout p95, stressed until it breaks, recorded where (only measured numbers)
+- S18-07 extended: Redis down, Postgres restart, chaos kill of an app replica; zero oversell and zero double-charge afterward
+- S18-04 extended to refunds
+

@@ -1,0 +1,2265 @@
+{
+  "project": "18-flash-sale-inventory",
+  "initialized_at": "2026-10-24T10:04:38.367651+00:00",
+  "total_features": 40,
+  "layer_counts": {
+    "FE": 1,
+    "BE": 40,
+    "DB": 22,
+    "ML": 0
+  },
+  "features": {
+    "FLS-001": {
+      "id": "FLS-001",
+      "feature": "Product database",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:06:12.472206+00:00",
+      "completed_at": "2026-10-24T10:07:59.933411+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_product_database.py::test_FLS_001_product_database"
+      ],
+      "files": [
+        "backend/src/models/catalog.py"
+      ],
+      "evidence": "",
+      "notes": "Product database with integer cents pricing and title validation",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-002": {
+      "id": "FLS-002",
+      "feature": "Inventory database",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:06:12.474895+00:00",
+      "completed_at": "2026-10-24T10:08:08.807679+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_inventory_database.py::test_FLS_002_inventory_database"
+      ],
+      "files": [
+        "backend/src/models/inventory.py"
+      ],
+      "evidence": "",
+      "notes": "Inventory database with DB-level check constraints enforcing available+reserved+sold==total",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-003": {
+      "id": "FLS-003",
+      "feature": "Reservation store",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:06:12.475066+00:00",
+      "completed_at": "2026-10-24T10:08:17.268320+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reservation_store.py::test_FLS_003_reservation_store"
+      ],
+      "files": [
+        "backend/src/models/inventory.py"
+      ],
+      "evidence": "",
+      "notes": "Reservation store managing pending, confirmed, expired and released states",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-004": {
+      "id": "FLS-004",
+      "feature": "Order database",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:08:41.247598+00:00",
+      "completed_at": "2026-10-24T10:10:44.468212+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_order_database.py::test_FLS_004_order_database_and_idempotency"
+      ],
+      "files": [
+        "backend/src/models/orders.py"
+      ],
+      "evidence": "",
+      "notes": "Order database with unique idempotency constraints and user indexing",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-005": {
+      "id": "FLS-005",
+      "feature": "Payment records",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:08:41.250209+00:00",
+      "completed_at": "2026-10-24T10:11:04.344244+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_payment_records.py::test_FLS_005_payment_records_and_idempotency"
+      ],
+      "files": [
+        "backend/src/models/payments.py"
+      ],
+      "evidence": "",
+      "notes": "Payment records database with integer cents and double-charge prevention",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-006": {
+      "id": "FLS-006",
+      "feature": "Campaign database",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:08:41.250420+00:00",
+      "completed_at": "2026-10-24T10:11:12.783452+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_campaign_database.py::test_FLS_006_campaign_database"
+      ],
+      "files": [
+        "backend/src/models/campaigns.py"
+      ],
+      "evidence": "",
+      "notes": "Campaign database with start/end time validation and purchase limits",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-011": {
+      "id": "FLS-011",
+      "feature": "Atomic transactions",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:11:35.246629+00:00",
+      "completed_at": "2026-10-24T10:13:38.289153+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_atomic_transactions.py::test_FLS_011_atomic_transactions"
+      ],
+      "files": [
+        "backend/src/transactions/atomic.py"
+      ],
+      "evidence": "",
+      "notes": "Atomic multi-table stock reservations with rollback on constraint violations",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-013": {
+      "id": "FLS-013",
+      "feature": "Sale lifecycle management",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:11:35.248134+00:00",
+      "completed_at": "2026-10-24T10:13:47.116536+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_sale_lifecycle.py::test_FLS_013_sale_lifecycle_management"
+      ],
+      "files": [
+        "backend/src/sales/lifecycle.py"
+      ],
+      "evidence": "",
+      "notes": "Sale lifecycle manager driven by start/end time and stock depletion",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-016": {
+      "id": "FLS-016",
+      "feature": "Sale state machine",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:11:35.248567+00:00",
+      "completed_at": "2026-10-24T10:13:54.551519+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_sale_state_machine.py::test_FLS_016_sale_state_machine"
+      ],
+      "files": [
+        "backend/src/sales/lifecycle.py"
+      ],
+      "evidence": "",
+      "notes": "Table-driven sale state machine strictly rejecting illegal state transitions",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-019": {
+      "id": "FLS-019",
+      "feature": "Sale-specific pricing",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:14:16.577876+00:00",
+      "completed_at": "2026-10-24T10:16:26.016052+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_sale_pricing.py::test_FLS_019_sale_specific_pricing"
+      ],
+      "files": [
+        "backend/src/pricing/pricing.py"
+      ],
+      "evidence": "",
+      "notes": "Sale-specific pricing resolving active campaign prices while preserving baseline",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-039": {
+      "id": "FLS-039",
+      "feature": "Real-time stock tracking",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:14:16.579947+00:00",
+      "completed_at": "2026-10-24T10:16:37.453645+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_stock_tracking.py::test_FLS_039_real_time_stock_tracking"
+      ],
+      "files": [
+        "backend/src/stock/reservation.py"
+      ],
+      "evidence": "",
+      "notes": "Real-time stock queries asserting continuous conservation invariant",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-044": {
+      "id": "FLS-044",
+      "feature": "Atomic stock reservation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:14:16.580144+00:00",
+      "completed_at": "2026-10-24T10:16:48.010900+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_atomic_stock_reservation.py::test_FLS_044_atomic_stock_reservation"
+      ],
+      "files": [
+        "backend/src/stock/reservation.py"
+      ],
+      "evidence": "",
+      "notes": "Atomic stock reservation preventing race conditions and overselling",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-045": {
+      "id": "FLS-045",
+      "feature": "Reservation expiry",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:17:12.696258+00:00",
+      "completed_at": "2026-10-24T10:24:59.505574+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reservation_expiry.py::test_FLS_045_reservation_expiry"
+      ],
+      "files": [
+        "backend/src/stock/reservation.py"
+      ],
+      "evidence": "",
+      "notes": "Reservation expiry reaper with exact-once stock restoration",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-046": {
+      "id": "FLS-046",
+      "feature": "Reservation release",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:17:12.697010+00:00",
+      "completed_at": "2026-10-24T10:25:05.655834+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reservation_release.py::test_FLS_046_reservation_release"
+      ],
+      "files": [
+        "backend/src/stock/reservation.py"
+      ],
+      "evidence": "",
+      "notes": "Explicit reservation release returning stock to available",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-047": {
+      "id": "FLS-047",
+      "feature": "Oversell prevention",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:17:12.697206+00:00",
+      "completed_at": "2026-10-24T10:25:13.203853+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_oversell_prevention.py::test_FLS_047_oversell_prevention_under_concurrency"
+      ],
+      "files": [
+        "backend/src/stock/reservation.py"
+      ],
+      "evidence": "",
+      "notes": "Oversell prevention ensuring zero stock oversell under concurrency",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-048": {
+      "id": "FLS-048",
+      "feature": "Negative-stock prevention",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:25:41.962520+00:00",
+      "completed_at": "2026-10-24T10:27:59.581562+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_negative_stock_prevention.py::test_FLS_048_negative_stock_prevention"
+      ],
+      "files": [
+        "backend/src/stock/reservation.py",
+        "backend/src/models/inventory.py"
+      ],
+      "evidence": "",
+      "notes": "Negative-stock prevention with service and DB CHECK constraint guarantees",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-049": {
+      "id": "FLS-049",
+      "feature": "Stock reconciliation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:25:42.064949+00:00",
+      "completed_at": "2026-10-24T10:28:07.190634+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_stock_reconciliation.py::test_FLS_049_stock_reconciliation"
+      ],
+      "files": [
+        "backend/src/stock/reconciliation.py"
+      ],
+      "evidence": "",
+      "notes": "Stock reconciliation engine auditing inventory counts against ledger truth",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-053": {
+      "id": "FLS-053",
+      "feature": "Percentage discount",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area Pricing & Promotions",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:25:42.145148+00:00",
+      "completed_at": "2026-10-24T10:28:15.628276+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_percentage_discount.py::test_FLS_053_percentage_discount"
+      ],
+      "files": [
+        "backend/src/pricing/pricing.py"
+      ],
+      "evidence": "",
+      "notes": "Percentage discount engine in integer cents with deterministic rounding",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-062": {
+      "id": "FLS-062",
+      "feature": "Price-floor validation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area Pricing & Promotions",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:28:44.339947+00:00",
+      "completed_at": "2026-10-24T10:31:07.202937+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_price_floor_validation.py::test_FLS_062_price_floor_validation"
+      ],
+      "files": [
+        "backend/src/pricing/pricing.py"
+      ],
+      "evidence": "",
+      "notes": "Price-floor validation protecting margin bounds and enforcing floor thresholds",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-065": {
+      "id": "FLS-065",
+      "feature": "Purchase admission",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:28:44.445340+00:00",
+      "completed_at": "2026-10-24T10:31:13.599473+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_purchase_admission.py::test_FLS_065_purchase_admission"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py"
+      ],
+      "evidence": "",
+      "notes": "Purchase admission controller issuing and validating user-bound admission leases",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-066": {
+      "id": "FLS-066",
+      "feature": "Queue/waiting room",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:28:45.117522+00:00",
+      "completed_at": "2026-10-24T10:31:20.322991+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_waiting_room.py::test_FLS_066_queue_waiting_room"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py"
+      ],
+      "evidence": "",
+      "notes": "Virtual waiting room with FIFO ordering, position tracking, and stale sweeps",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-067": {
+      "id": "FLS-067",
+      "feature": "Per-user purchase limit",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:31:49.310429+00:00",
+      "completed_at": "2026-10-24T10:33:57.249202+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_per_user_purchase_limit.py::test_FLS_067_per_user_purchase_limit"
+      ],
+      "files": [
+        "backend/src/flow/checkout.py"
+      ],
+      "evidence": "",
+      "notes": "Per-user purchase limit preventing quota abuse during flash sales",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-069": {
+      "id": "FLS-069",
+      "feature": "Atomic checkout",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:31:49.419862+00:00",
+      "completed_at": "2026-10-24T10:34:03.086219+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_atomic_checkout.py::test_FLS_069_atomic_checkout"
+      ],
+      "files": [
+        "backend/src/flow/checkout.py"
+      ],
+      "evidence": "",
+      "notes": "Atomic checkout transitioning reservation, inventory, order, and payment in one transaction",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-070": {
+      "id": "FLS-070",
+      "feature": "Idempotency keys",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:31:49.543592+00:00",
+      "completed_at": "2026-10-24T10:34:08.583321+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_idempotency_keys.py::test_FLS_070_idempotency_keys"
+      ],
+      "files": [
+        "backend/src/flow/checkout.py"
+      ],
+      "evidence": "",
+      "notes": "Idempotency key enforcement guaranteeing idempotent checkout replays",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-071": {
+      "id": "FLS-071",
+      "feature": "Duplicate-order prevention",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:34:40.369119+00:00",
+      "completed_at": "2026-10-24T10:35:49.511996+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_duplicate_order_prevention.py::test_FLS_071_duplicate_order_prevention"
+      ],
+      "files": [
+        "backend/src/flow/checkout.py"
+      ],
+      "evidence": "",
+      "notes": "Duplicate order prevention across repeated checkouts and confirmed reservations",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-075": {
+      "id": "FLS-075",
+      "feature": "Reservation tokens",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:34:40.456910+00:00",
+      "completed_at": "2026-10-24T10:36:09.251539+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reservation_tokens.py::test_FLS_075_reservation_tokens"
+      ],
+      "files": [
+        "backend/src/flow/checkout.py"
+      ],
+      "evidence": "",
+      "notes": "Reservation tokens validating buyer identity and preventing counterfeit token use",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-076": {
+      "id": "FLS-076",
+      "feature": "Checkout timeout",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:34:40.568883+00:00",
+      "completed_at": "2026-10-24T10:36:15.916305+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_checkout_timeout.py::test_FLS_076_checkout_timeout"
+      ],
+      "files": [
+        "backend/src/flow/checkout.py"
+      ],
+      "evidence": "",
+      "notes": "Checkout timeout lease expiry automatically releasing reserved stock back to available",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-078": {
+      "id": "FLS-078",
+      "feature": "Virtual waiting room",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:36:36.803365+00:00",
+      "completed_at": "2026-10-24T10:38:13.689199+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_virtual_waiting_room.py::test_FLS_078_virtual_waiting_room"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py"
+      ],
+      "evidence": "",
+      "notes": "Virtual waiting room regulating traffic bursts with batch admissions",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-079": {
+      "id": "FLS-079",
+      "feature": "Queue position",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:36:36.880880+00:00",
+      "completed_at": "2026-10-24T10:38:20.829920+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_position.py::test_FLS_079_queue_position"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py"
+      ],
+      "evidence": "",
+      "notes": "Queue position tracking with users ahead and estimated wait times",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-080": {
+      "id": "FLS-080",
+      "feature": "Queue tokens",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:36:37.042250+00:00",
+      "completed_at": "2026-10-24T10:38:27.342874+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_tokens.py::test_FLS_080_queue_tokens"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py"
+      ],
+      "evidence": "",
+      "notes": "Cryptographically signed HMAC queue tokens with tamper-proofing and expiration",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-085": {
+      "id": "FLS-085",
+      "feature": "Per-IP limits",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:38:58.529517+00:00",
+      "completed_at": "2026-10-24T10:40:58.419935+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_per_ip_limits.py::test_FLS_085_per_ip_limits"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py"
+      ],
+      "evidence": "",
+      "notes": "Per-IP sliding window rate limiting protecting against bot floods and DDoS",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-090": {
+      "id": "FLS-090",
+      "feature": "Order creation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:38:58.686186+00:00",
+      "completed_at": "2026-10-24T10:41:05.813360+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_order_creation.py::test_FLS_090_order_creation"
+      ],
+      "files": [
+        "backend/src/models/orders.py"
+      ],
+      "evidence": "",
+      "notes": "Order creation with integer money, idempotency checks, and initial PENDING status",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-091": {
+      "id": "FLS-091",
+      "feature": "Order state machine",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:38:58.771183+00:00",
+      "completed_at": "2026-10-24T10:41:13.057429+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_order_state_machine.py::test_FLS_091_order_state_machine"
+      ],
+      "files": [
+        "backend/src/models/orders.py"
+      ],
+      "evidence": "",
+      "notes": "Order state machine validating legal transitions and terminal state enforcement",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-092": {
+      "id": "FLS-092",
+      "feature": "Payment initiation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:41:43.096699+00:00",
+      "completed_at": "2026-10-24T10:43:08.643550+00:00",
+      "verification": "LOCAL_EQUIVALENT",
+      "tests": [
+        "backend/tests/test_payment_initiation.py::test_FLS_092_payment_initiation"
+      ],
+      "files": [
+        "backend/src/models/payments.py"
+      ],
+      "evidence": "",
+      "notes": "Payment initiation with non-negative amount cents and provider binding | Relabeled REAL->LOCAL_EQUIVALENT: Payment initiation runs against local payment gateway sandbox",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-093": {
+      "id": "FLS-093",
+      "feature": "Payment confirmation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:41:43.182327+00:00",
+      "completed_at": "2026-10-24T10:43:15.224431+00:00",
+      "verification": "LOCAL_EQUIVALENT",
+      "tests": [
+        "backend/tests/test_payment_confirmation.py::test_FLS_093_payment_confirmation"
+      ],
+      "files": [
+        "backend/src/models/payments.py"
+      ],
+      "evidence": "",
+      "notes": "Payment confirmation with provider transaction ID and atomic order transition to PAID | Relabeled REAL->LOCAL_EQUIVALENT: Payment confirmation runs against local payment gateway sandbox",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-096": {
+      "id": "FLS-096",
+      "feature": "Payment idempotency",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:41:43.271051+00:00",
+      "completed_at": "2026-10-24T10:43:22.209308+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_payment_idempotency.py::test_FLS_096_payment_idempotency"
+      ],
+      "files": [
+        "backend/src/models/payments.py"
+      ],
+      "evidence": "",
+      "notes": "Payment idempotency ensuring repeat submissions return identical payment records",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-097": {
+      "id": "FLS-097",
+      "feature": "Order expiration",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:43:41.266483+00:00",
+      "completed_at": "2026-10-24T10:45:57.948530+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_order_expiration.py::test_FLS_097_order_expiration"
+      ],
+      "files": [
+        "backend/src/models/orders.py"
+      ],
+      "evidence": "",
+      "notes": "Order expiration reaper sweeping unpaid pending orders beyond payment timeout",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-106": {
+      "id": "FLS-106",
+      "feature": "Reservation API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:43:41.348510+00:00",
+      "completed_at": "2026-10-24T10:46:05.943824+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reservation_api.py::test_FLS_106_reservation_api"
+      ],
+      "files": [
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Reservation REST API with atomic stock hold and conflict handling",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-108": {
+      "id": "FLS-108",
+      "feature": "Checkout API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:43:41.420948+00:00",
+      "completed_at": "2026-10-24T10:46:14.700219+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_checkout_api.py::test_FLS_108_checkout_api"
+      ],
+      "files": [
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Checkout REST API with atomic multi-table execution and replay idempotency",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-116": {
+      "id": "FLS-116",
+      "feature": "Live stock dashboard",
+      "layers": [
+        "FE",
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Frontend & Operations Console",
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T10:46:32.092200+00:00",
+      "completed_at": "2026-10-24T10:48:58.011715+00:00",
+      "verification": "REAL",
+      "tests": [
+        "frontend/tests/test_live_stock_dashboard.py::test_FLS_116_dashboard_assets_integrity",
+        "frontend/tests/test_live_stock_dashboard.py::test_FLS_116_dashboard_api_feed"
+      ],
+      "files": [
+        "frontend/src/index.html",
+        "frontend/src/index.css",
+        "frontend/src/app.js"
+      ],
+      "evidence": "",
+      "notes": "Live stock dashboard with real-time metrics, inventory table, and hold simulator",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-008": {
+      "id": "FLS-008",
+      "feature": "User database",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "rank": 33,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:22:44.279651+00:00",
+      "completed_at": "2026-10-24T14:31:55.798957+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_database_distributed_state.py::test_FLS_008_user_database"
+      ],
+      "files": [
+        "backend/src/models/users.py",
+        "backend/tests/test_database_distributed_state.py"
+      ],
+      "evidence": "",
+      "notes": "User database model with PBKDF2 hashing and account lockout tracking",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-010": {
+      "id": "FLS-010",
+      "feature": "Distributed locks",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "rank": 3,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:22:44.372823+00:00",
+      "completed_at": "2026-10-24T14:32:01.278632+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_database_distributed_state.py::test_FLS_010_distributed_locks_fencing"
+      ],
+      "files": [
+        "backend/src/transactions/distributed_lock.py",
+        "backend/tests/test_database_distributed_state.py"
+      ],
+      "evidence": "",
+      "notes": "Distributed locks with monotonic fencing tokens and stale write rejection",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-012": {
+      "id": "FLS-012",
+      "feature": "Optimistic concurrency",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Database & Distributed State",
+      "rank": 4,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:22:44.446252+00:00",
+      "completed_at": "2026-10-24T14:32:06.361552+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_database_distributed_state.py::test_FLS_012_optimistic_concurrency_retries"
+      ],
+      "files": [
+        "backend/src/transactions/optimistic.py",
+        "backend/src/models/inventory.py",
+        "backend/tests/test_database_distributed_state.py"
+      ],
+      "evidence": "",
+      "notes": "Optimistic concurrency versioning with bounded conflict retry",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-014": {
+      "id": "FLS-014",
+      "feature": "Sale start/end scheduling",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "rank": 30,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:32:22.420573+00:00",
+      "completed_at": "2026-10-24T14:34:49.648574+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_flash_sale_core.py::test_FLS_014_sale_start_end_scheduling"
+      ],
+      "files": [
+        "backend/src/sales/scheduling.py",
+        "backend/tests/test_flash_sale_core.py"
+      ],
+      "evidence": "",
+      "notes": "Sale start/end scheduling service with time window validation and phase computation",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-020": {
+      "id": "FLS-020",
+      "feature": "Original-price preservation",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "rank": 24,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:32:22.492963+00:00",
+      "completed_at": "2026-10-24T14:34:54.345118+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_flash_sale_core.py::test_FLS_020_original_price_preservation"
+      ],
+      "files": [
+        "backend/src/pricing/validation.py",
+        "backend/tests/test_flash_sale_core.py"
+      ],
+      "evidence": "",
+      "notes": "Original price baseline preservation and quoting alongside sale price",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-021": {
+      "id": "FLS-021",
+      "feature": "Sale-price validation",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "rank": 25,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:32:22.565802+00:00",
+      "completed_at": "2026-10-24T14:34:59.271269+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_flash_sale_core.py::test_FLS_021_sale_price_validation"
+      ],
+      "files": [
+        "backend/src/pricing/validation.py",
+        "backend/tests/test_flash_sale_core.py"
+      ],
+      "evidence": "",
+      "notes": "Sale price validation ensuring price >= floor and discount <= cap",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-024": {
+      "id": "FLS-024",
+      "feature": "Timezone handling",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "rank": 32,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:35:15.668421+00:00",
+      "completed_at": "2026-10-24T14:36:47.156593+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_timezone_activation.py::test_FLS_024_timezone_handling_across_dst_boundary"
+      ],
+      "files": [
+        "backend/src/sales/activation.py",
+        "backend/tests/test_timezone_activation.py"
+      ],
+      "evidence": "",
+      "notes": "Timezone conversion with DST boundary transition handling across IANA timezones",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-025": {
+      "id": "FLS-025",
+      "feature": "Scheduled activation",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Flash Sale Core",
+      "rank": 31,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:35:15.747599+00:00",
+      "completed_at": "2026-10-24T14:36:52.925145+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_timezone_activation.py::test_FLS_025_scheduled_activation_dst_injected_clock"
+      ],
+      "files": [
+        "backend/src/sales/activation.py",
+        "backend/tests/test_timezone_activation.py"
+      ],
+      "evidence": "",
+      "notes": "Scheduled activation within tolerance across DST boundary with injected clock and real-time test",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-026": {
+      "id": "FLS-026",
+      "feature": "User authentication",
+      "layers": [
+        "FE",
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area User & Customer Management",
+      "rank": 34,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:37:40.280740+00:00",
+      "completed_at": "2026-10-24T14:43:17.538010+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_user_customer_management.py::test_FLS_026_user_authentication"
+      ],
+      "files": [
+        "backend/src/auth/service.py",
+        "backend/src/api/app.py",
+        "frontend/src/index.html",
+        "frontend/src/app.js",
+        "backend/tests/test_user_customer_management.py"
+      ],
+      "evidence": "",
+      "notes": "User registration and authentication with PBKDF2 hashing, session tokens, and frontend UI controls",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-032": {
+      "id": "FLS-032",
+      "feature": "Per-user limits",
+      "layers": [
+        "FE",
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area User & Customer Management",
+      "rank": 37,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:37:40.357047+00:00",
+      "completed_at": "2026-10-24T14:43:25.605421+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_user_customer_management.py::test_FLS_032_per_user_limits"
+      ],
+      "files": [
+        "backend/src/auth/service.py",
+        "backend/src/api/app.py",
+        "frontend/src/index.html",
+        "backend/tests/test_user_customer_management.py"
+      ],
+      "evidence": "",
+      "notes": "Per-user SKU limit tracking across active reservations and orders with limit monitoring endpoint",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-036": {
+      "id": "FLS-036",
+      "feature": "Blocked-user rules",
+      "layers": [
+        "FE",
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area User & Customer Management",
+      "rank": 38,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:37:40.432186+00:00",
+      "completed_at": "2026-10-24T14:43:33.367091+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_user_customer_management.py::test_FLS_036_blocked_user_rules"
+      ],
+      "files": [
+        "backend/src/auth/service.py",
+        "backend/src/api/app.py",
+        "backend/tests/test_user_customer_management.py"
+      ],
+      "evidence": "",
+      "notes": "Blocked-user rules engine rejecting BLOCKED accounts and fraudulent domain patterns",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-037": {
+      "id": "FLS-037",
+      "feature": "Account lockout",
+      "layers": [
+        "FE",
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area User & Customer Management",
+      "rank": 35,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:43:45.917550+00:00",
+      "completed_at": "2026-10-24T14:44:36.454594+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_user_customer_management.py::test_FLS_037_account_lockout_exponential_cool_down"
+      ],
+      "files": [
+        "backend/src/auth/service.py",
+        "backend/src/models/users.py",
+        "backend/tests/test_user_customer_management.py"
+      ],
+      "evidence": "",
+      "notes": "Account lockout with exponential cool-down on repeated failed login attempts",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-038": {
+      "id": "FLS-038",
+      "feature": "Session management",
+      "layers": [
+        "FE",
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area User & Customer Management",
+      "rank": 36,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:43:45.989921+00:00",
+      "completed_at": "2026-10-24T14:44:43.051053+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_user_customer_management.py::test_FLS_038_session_management_rotation_revocation"
+      ],
+      "files": [
+        "backend/src/auth/service.py",
+        "backend/src/api/app.py",
+        "frontend/src/app.js",
+        "backend/tests/test_user_customer_management.py"
+      ],
+      "evidence": "",
+      "notes": "Session token management with token rotation and revocation",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-040": {
+      "id": "FLS-040",
+      "feature": "Available quantity",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "rank": 19,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:44:59.394094+00:00",
+      "completed_at": "2026-10-24T14:46:39.973100+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_inventory_reservation_stock.py::test_FLS_040_available_quantity"
+      ],
+      "files": [
+        "backend/src/models/inventory.py",
+        "backend/src/stock/reservation.py",
+        "backend/tests/test_inventory_reservation_stock.py"
+      ],
+      "evidence": "",
+      "notes": "Available quantity tracking with non-negative check constraint and conservation invariant",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-041": {
+      "id": "FLS-041",
+      "feature": "Reserved quantity",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "rank": 20,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:44:59.472709+00:00",
+      "completed_at": "2026-10-24T14:46:47.776001+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_inventory_reservation_stock.py::test_FLS_041_reserved_quantity"
+      ],
+      "files": [
+        "backend/src/models/inventory.py",
+        "backend/src/stock/reservation.py",
+        "backend/tests/test_inventory_reservation_stock.py"
+      ],
+      "evidence": "",
+      "notes": "Reserved quantity lifecycle tracking pending reservation holds and release",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-042": {
+      "id": "FLS-042",
+      "feature": "Sold quantity",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "rank": 21,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:44:59.541048+00:00",
+      "completed_at": "2026-10-24T14:46:54.527823+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_inventory_reservation_stock.py::test_FLS_042_sold_quantity"
+      ],
+      "files": [
+        "backend/src/models/inventory.py",
+        "backend/src/flow/checkout.py",
+        "backend/tests/test_inventory_reservation_stock.py"
+      ],
+      "evidence": "",
+      "notes": "Sold quantity increment on purchase completion maintaining total inventory conservation",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-050": {
+      "id": "FLS-050",
+      "feature": "SKU-level inventory",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Inventory Reservation & Stock",
+      "rank": 22,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:47:00.974695+00:00",
+      "completed_at": "2026-10-24T14:47:06.840150+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_inventory_reservation_stock.py::test_FLS_050_sku_level_inventory"
+      ],
+      "files": [
+        "backend/src/models/inventory.py",
+        "backend/src/stock/reservation.py",
+        "backend/tests/test_inventory_reservation_stock.py"
+      ],
+      "evidence": "",
+      "notes": "SKU-level inventory isolation for multi-variant products",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-054": {
+      "id": "FLS-054",
+      "feature": "Fixed discount",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area Pricing & Promotions",
+      "rank": 27,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:47:23.438076+00:00",
+      "completed_at": "2026-10-24T14:49:47.149278+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_pricing_promotions.py::test_FLS_054_fixed_discount"
+      ],
+      "files": [
+        "backend/src/pricing/promotions.py",
+        "backend/tests/test_pricing_promotions.py"
+      ],
+      "evidence": "",
+      "notes": "Fixed dollar discount calculations with floor constraint enforcement",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-057": {
+      "id": "FLS-057",
+      "feature": "Coupon validation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area Pricing & Promotions",
+      "rank": 28,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:47:23.572390+00:00",
+      "completed_at": "2026-10-24T14:49:52.959294+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_pricing_promotions.py::test_FLS_057_coupon_validation_and_concurrency"
+      ],
+      "files": [
+        "backend/src/models/promotions.py",
+        "backend/src/pricing/promotions.py",
+        "backend/tests/test_pricing_promotions.py"
+      ],
+      "evidence": "",
+      "notes": "Coupon validation and atomic redemption with concurrent double-use prevention",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-058": {
+      "id": "FLS-058",
+      "feature": "Promotion stacking rules",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area Pricing & Promotions",
+      "rank": 29,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:47:24.119541+00:00",
+      "completed_at": "2026-10-24T14:49:58.668851+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_pricing_promotions.py::test_FLS_058_promotion_stacking_rules"
+      ],
+      "files": [
+        "backend/src/pricing/promotions.py",
+        "backend/tests/test_pricing_promotions.py"
+      ],
+      "evidence": "",
+      "notes": "Promotion stacking rules preventing stacking unstackable coupons with flash sales",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-061": {
+      "id": "FLS-061",
+      "feature": "Maximum discount limits",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P1",
+      "area": "Area Pricing & Promotions",
+      "rank": 26,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:50:03.328885+00:00",
+      "completed_at": "2026-10-24T14:50:24.129300+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_pricing_promotions.py::test_FLS_061_maximum_discount_limits"
+      ],
+      "files": [
+        "backend/src/pricing/promotions.py",
+        "backend/tests/test_pricing_promotions.py"
+      ],
+      "evidence": "",
+      "notes": "Maximum total discount limit capping across stacked promotions and coupons",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-068": {
+      "id": "FLS-068",
+      "feature": "Per-SKU purchase limit",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "rank": 12,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:50:40.056355+00:00",
+      "completed_at": "2026-10-24T14:53:28.588419+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_high_concurrency_purchase_flow.py::test_FLS_068_per_sku_purchase_limit"
+      ],
+      "files": [
+        "backend/src/flow/throttling.py",
+        "backend/tests/test_high_concurrency_purchase_flow.py"
+      ],
+      "evidence": "",
+      "notes": "Per-SKU purchase limit tracking across cumulative orders and active holds",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-072": {
+      "id": "FLS-072",
+      "feature": "Request throttling",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "rank": 14,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:50:40.130387+00:00",
+      "completed_at": "2026-10-24T14:53:34.502259+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_high_concurrency_purchase_flow.py::test_FLS_072_request_throttling"
+      ],
+      "files": [
+        "backend/src/flow/throttling.py",
+        "backend/tests/test_high_concurrency_purchase_flow.py"
+      ],
+      "evidence": "",
+      "notes": "Token bucket request throttling with retry-after calculation",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-073": {
+      "id": "FLS-073",
+      "feature": "Burst handling",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "rank": 15,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:50:40.208776+00:00",
+      "completed_at": "2026-10-24T14:53:40.565850+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_high_concurrency_purchase_flow.py::test_FLS_073_burst_handling"
+      ],
+      "files": [
+        "backend/src/flow/throttling.py",
+        "backend/tests/test_high_concurrency_purchase_flow.py"
+      ],
+      "evidence": "",
+      "notes": "Token bucket burst capacity handling and smoothing refill",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-077": {
+      "id": "FLS-077",
+      "feature": "Payment timeout handling",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area High-Concurrency Purchase Flow",
+      "rank": 11,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:53:45.633089+00:00",
+      "completed_at": "2026-10-24T14:53:51.514044+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_high_concurrency_purchase_flow.py::test_FLS_077_payment_timeout_handling"
+      ],
+      "files": [
+        "backend/src/flow/throttling.py",
+        "backend/tests/test_high_concurrency_purchase_flow.py"
+      ],
+      "evidence": "",
+      "notes": "Payment timeout detection canceling expired pending orders and restoring held stock",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-081": {
+      "id": "FLS-081",
+      "feature": "Queue expiration",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:54:14.583421+00:00",
+      "completed_at": "2026-10-24T14:56:37.917126+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_fairness.py::test_FLS_081_queue_expiration"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py",
+        "backend/tests/test_queue_fairness.py"
+      ],
+      "evidence": "",
+      "notes": "Waiting room queue and admission ticket TTL expiration pruning",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-082": {
+      "id": "FLS-082",
+      "feature": "Fair queue ordering",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:54:14.657129+00:00",
+      "completed_at": "2026-10-24T14:56:43.902675+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_fairness.py::test_FLS_082_fair_queue_ordering"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py",
+        "backend/tests/test_queue_fairness.py"
+      ],
+      "evidence": "",
+      "notes": "Strict FIFO fair queue ordering preventing queue-jumping and starvation",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-084": {
+      "id": "FLS-084",
+      "feature": "Randomized admission",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:54:14.725408+00:00",
+      "completed_at": "2026-10-24T14:56:50.138276+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_fairness.py::test_FLS_084_randomized_admission_uniformity"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py",
+        "backend/tests/test_queue_fairness.py"
+      ],
+      "evidence": "",
+      "notes": "Randomized admission lottery statistically uniform across N>=10,000 draws",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-086": {
+      "id": "FLS-086",
+      "feature": "Per-account limits",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Queue",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:57:33.805596+00:00",
+      "completed_at": "2026-10-24T14:57:46.036928+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_queue_fairness.py::test_FLS_086_per_account_limits"
+      ],
+      "files": [
+        "backend/src/flow/waiting_room.py",
+        "backend/tests/test_queue_fairness.py"
+      ],
+      "evidence": "",
+      "notes": "Per-account waiting room limits preventing concurrent duplicate queue holding",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-094": {
+      "id": "FLS-094",
+      "feature": "Payment failure handling",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "rank": 6,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:58:07.257194+00:00",
+      "completed_at": "2026-10-24T15:01:22.659880+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_orders_payments.py::test_FLS_094_payment_failure_handling"
+      ],
+      "files": [
+        "backend/src/flow/order_payments.py",
+        "backend/tests/test_orders_payments.py"
+      ],
+      "evidence": "",
+      "notes": "Payment failure recording with error code and status transition",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-095": {
+      "id": "FLS-095",
+      "feature": "Payment retry",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "rank": 7,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:58:07.353992+00:00",
+      "completed_at": "2026-10-24T15:01:29.173618+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_orders_payments.py::test_FLS_095_payment_retry_idempotent"
+      ],
+      "files": [
+        "backend/src/flow/order_payments.py",
+        "backend/tests/test_orders_payments.py"
+      ],
+      "evidence": "",
+      "notes": "Idempotent payment retry preventing duplicate charges",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-098": {
+      "id": "FLS-098",
+      "feature": "Order cancellation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "rank": 10,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T14:58:07.424313+00:00",
+      "completed_at": "2026-10-24T15:01:42.667921+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_orders_payments.py::test_FLS_098_order_cancellation"
+      ],
+      "files": [
+        "backend/src/flow/order_payments.py",
+        "backend/tests/test_orders_payments.py"
+      ],
+      "evidence": "",
+      "notes": "Order cancellation with automatic held inventory restoration",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-099": {
+      "id": "FLS-099",
+      "feature": "Refund initiation",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "rank": 8,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:01:55.684813+00:00",
+      "completed_at": "2026-10-24T15:02:02.959011+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_orders_payments.py::test_FLS_099_refund_initiation_idempotent"
+      ],
+      "files": [
+        "backend/src/models/payments.py",
+        "backend/src/flow/order_payments.py",
+        "backend/tests/test_orders_payments.py"
+      ],
+      "evidence": "",
+      "notes": "Idempotent refund initiation capped to captured payment amount",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-100": {
+      "id": "FLS-100",
+      "feature": "Refund status",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "rank": 9,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:01:55.768569+00:00",
+      "completed_at": "2026-10-24T15:02:11.326004+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_orders_payments.py::test_FLS_100_refund_status"
+      ],
+      "files": [
+        "backend/src/models/payments.py",
+        "backend/src/flow/order_payments.py",
+        "backend/tests/test_orders_payments.py"
+      ],
+      "evidence": "",
+      "notes": "Refund status tracking and order refund state transition",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-101": {
+      "id": "FLS-101",
+      "feature": "Inventory-to-order consistency",
+      "layers": [
+        "BE",
+        "DB"
+      ],
+      "priority": "P0",
+      "area": "Area Orders & Payments",
+      "rank": 5,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:01:55.845806+00:00",
+      "completed_at": "2026-10-24T15:02:19.102474+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_orders_payments.py::test_FLS_101_inventory_to_order_consistency"
+      ],
+      "files": [
+        "backend/src/flow/order_payments.py",
+        "backend/tests/test_orders_payments.py"
+      ],
+      "evidence": "",
+      "notes": "Inventory-to-order consistency reconciliation job detecting intentionally corrupted rows",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-103": {
+      "id": "FLS-103",
+      "feature": "Flash-sale API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "rank": 39,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:02:39.817937+00:00",
+      "completed_at": "2026-10-24T15:05:34.237300+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_backend_apis_services.py::test_FLS_103_flash_sale_api"
+      ],
+      "files": [
+        "backend/src/api/app.py",
+        "backend/tests/test_backend_apis_services.py"
+      ],
+      "evidence": "",
+      "notes": "Flash-sale REST API endpoints for campaign creation, lookup, and listing",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-104": {
+      "id": "FLS-104",
+      "feature": "Product API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "rank": 43,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:02:39.890397+00:00",
+      "completed_at": "2026-10-24T15:05:41.312452+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_backend_apis_services.py::test_FLS_104_product_api"
+      ],
+      "files": [
+        "backend/src/api/app.py",
+        "backend/tests/test_backend_apis_services.py"
+      ],
+      "evidence": "",
+      "notes": "Product catalog REST API endpoints for product registration, lookup, and listing",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-105": {
+      "id": "FLS-105",
+      "feature": "Inventory API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "rank": 40,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:02:39.960416+00:00",
+      "completed_at": "2026-10-24T15:05:48.560779+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_backend_apis_services.py::test_FLS_105_inventory_api"
+      ],
+      "files": [
+        "backend/src/api/app.py",
+        "backend/src/models/inventory.py",
+        "backend/tests/test_backend_apis_services.py"
+      ],
+      "evidence": "",
+      "notes": "Inventory REST API endpoints for SKU inventory initialization and real-time stock lookup",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-109": {
+      "id": "FLS-109",
+      "feature": "Order API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "rank": 41,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:05:53.687951+00:00",
+      "completed_at": "2026-10-24T15:06:01.341362+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_backend_apis_services.py::test_FLS_109_order_api"
+      ],
+      "files": [
+        "backend/src/api/app.py",
+        "backend/tests/test_backend_apis_services.py"
+      ],
+      "evidence": "",
+      "notes": "Order REST API endpoints for order status lookup and user order history query",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-111": {
+      "id": "FLS-111",
+      "feature": "Queue API",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Backend APIs & Services",
+      "rank": 42,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:05:53.758533+00:00",
+      "completed_at": "2026-10-24T15:06:09.468495+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_backend_apis_services.py::test_FLS_111_queue_api"
+      ],
+      "files": [
+        "backend/src/api/app.py",
+        "backend/src/flow/waiting_room.py",
+        "backend/tests/test_backend_apis_services.py"
+      ],
+      "evidence": "",
+      "notes": "Queue REST API endpoints for waiting room join, status poll, and batch admission",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-115": {
+      "id": "FLS-115",
+      "feature": "Flash-sale dashboard",
+      "layers": [
+        "FE",
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Frontend & Operations Console",
+      "rank": 50,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:06:30.047505+00:00",
+      "completed_at": "2026-10-24T15:28:54.978287+00:00",
+      "verification": "REAL",
+      "tests": [
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_115_dashboard_dom_and_assets",
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_115_flash_sale_dashboard_summary_api"
+      ],
+      "files": [
+        "frontend/src/index.html",
+        "frontend/src/app.js",
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Flash-sale dashboard summary API and overview UI with sell-through metrics",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-123": {
+      "id": "FLS-123",
+      "feature": "Order monitoring",
+      "layers": [
+        "FE",
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Frontend & Operations Console",
+      "rank": 49,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:06:30.123243+00:00",
+      "completed_at": "2026-10-24T15:29:02.580543+00:00",
+      "verification": "REAL",
+      "tests": [
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_123_order_monitoring_dom",
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_123_order_monitoring_api"
+      ],
+      "files": [
+        "frontend/src/index.html",
+        "frontend/src/app.js",
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Real-time order monitoring stream API and live order fulfillment UI table",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-125": {
+      "id": "FLS-125",
+      "feature": "Real-time counters",
+      "layers": [
+        "FE",
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Frontend & Operations Console",
+      "rank": 47,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:06:30.193576+00:00",
+      "completed_at": "2026-10-24T15:29:09.581826+00:00",
+      "verification": "REAL",
+      "tests": [
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_125_real_time_counters_dom",
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_125_real_time_counters_api"
+      ],
+      "files": [
+        "frontend/src/index.html",
+        "frontend/src/app.js",
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Operational real-time counters API and UI cards tracking orders, GMV, and queue state",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-126": {
+      "id": "FLS-126",
+      "feature": "Low-stock alerts",
+      "layers": [
+        "FE",
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Frontend & Operations Console",
+      "rank": 48,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:29:19.448431+00:00",
+      "completed_at": "2026-10-24T15:29:26.692377+00:00",
+      "verification": "REAL",
+      "tests": [
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_126_low_stock_alerts_dom",
+        "frontend/tests/test_dashboard_monitoring.py::test_FLS_126_low_stock_alerts_api"
+      ],
+      "files": [
+        "frontend/src/index.html",
+        "frontend/src/app.js",
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Low-stock and inventory depletion alerts API and UI banner with threshold severity tracking",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-127": {
+      "id": "FLS-127",
+      "feature": "Prometheus metrics",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Notifications",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:29:43.070508+00:00",
+      "completed_at": "2026-10-24T15:32:34.479841+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_observability_notifications.py::test_FLS_127_prometheus_metrics"
+      ],
+      "files": [
+        "backend/src/observability/metrics.py",
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Prometheus metrics engine exposing real-time stock gauges, reservations, orders, and oversell counters",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-129": {
+      "id": "FLS-129",
+      "feature": "Structured logs",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Notifications",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:29:43.144447+00:00",
+      "completed_at": "2026-10-24T15:32:40.399252+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_observability_notifications.py::test_FLS_129_structured_logs"
+      ],
+      "files": [
+        "backend/src/observability/logging.py"
+      ],
+      "evidence": "",
+      "notes": "Structured JSON logging engine with context metadata and sensitive credential redaction",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-135": {
+      "id": "FLS-135",
+      "feature": "Oversell incidents",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P1",
+      "area": "Area Notifications",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:29:43.218920+00:00",
+      "completed_at": "2026-10-24T15:32:45.636892+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_observability_notifications.py::test_FLS_135_oversell_incidents"
+      ],
+      "files": [
+        "backend/src/observability/oversell.py",
+        "backend/src/api/app.py"
+      ],
+      "evidence": "",
+      "notes": "Oversell incident detection and audit scanner enforcing stock conservation invariant",
+      "final_blocker": null,
+      "sabotage": "na"
+    },
+    "FLS-139": {
+      "id": "FLS-139",
+      "feature": "Load testing",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Reliability",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:35:12.830367+00:00",
+      "completed_at": "2026-10-24T15:37:44.415142+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reliability_load.py::test_FLS_139_concurrent_load_testing"
+      ],
+      "files": [
+        "backend/tests/test_reliability_load.py"
+      ],
+      "evidence": "",
+      "notes": "High-concurrency load testing verifying throughput and p95 latency under concurrent pressure",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-141": {
+      "id": "FLS-141",
+      "feature": "Chaos testing",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Reliability",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:35:12.906498+00:00",
+      "completed_at": "2026-10-24T15:37:50.047804+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reliability_chaos.py::test_FLS_141_chaos_fault_injection_and_rollback"
+      ],
+      "files": [
+        "backend/tests/test_reliability_chaos.py"
+      ],
+      "evidence": "",
+      "notes": "Chaos testing and fault injection recovery proving atomic rollback on connection abort",
+      "final_blocker": null,
+      "sabotage": "yes"
+    },
+    "FLS-145": {
+      "id": "FLS-145",
+      "feature": "Cache failure handling",
+      "layers": [
+        "BE"
+      ],
+      "priority": "P0",
+      "area": "Area Reliability",
+      "rank": null,
+      "state": "COMPLETED",
+      "started_at": "2026-10-24T15:35:12.980141+00:00",
+      "completed_at": "2026-10-24T15:37:56.070277+00:00",
+      "verification": "REAL",
+      "tests": [
+        "backend/tests/test_reliability_chaos.py::test_FLS_145_cache_failure_handling"
+      ],
+      "files": [
+        "backend/src/stock/cache_resilience.py",
+        "backend/tests/test_reliability_chaos.py"
+      ],
+      "evidence": "",
+      "notes": "Transparent Redis/cache failure handling with graceful PostgreSQL fallback and zero oversell",
+      "final_blocker": null,
+      "sabotage": "yes"
+    }
+  }
+}
