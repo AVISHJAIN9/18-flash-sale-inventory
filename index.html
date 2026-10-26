@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flash Sale Operations Console | Live Stock Dashboard</title>
+  <meta name="description" content="High-concurrency real-time flash sale inventory monitoring and reservation operations console.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="dashboard-wrapper">
+    <!-- Top Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>FlashSale<span>Ops</span></h1>
+          <span class="subtitle">Distributed Real-Time Stock Engine</span>
+        </div>
+      </div>
+
+      <div class="header-status">
+        <div class="status-indicator">
+          <span class="pulse-dot"></span>
+          <span class="status-label" id="connection-status">GATEWAY ONLINE (PORT 8180)</span>
+        </div>
+        <div class="refresh-control">
+          <span class="last-sync" id="last-sync-time">Sync: just now</span>
+          <button id="refresh-btn" class="btn btn-secondary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M23 4v6h-6"></path>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+            Refresh
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content-container">
+      <!-- Top Metrics Overview -->
+      <section class="metrics-grid">
+        <div class="metric-card" id="card-total">
+          <div class="metric-header">
+            <span class="metric-title">Total Allocated</span>
+            <span class="metric-icon total">📦</span>
+          </div>
+          <div class="metric-value" id="val-total">0</div>
+          <div class="metric-sub">Global campaign pool</div>
+        </div>
+
+        <div class="metric-card" id="card-available">
+          <div class="metric-header">
+            <span class="metric-title">Available Stock</span>
+            <span class="metric-icon available">🟢</span>
+          </div>
+          <div class="metric-value green" id="val-available">0</div>
+          <div class="metric-sub">Ready for reservation</div>
+        </div>
+
+        <div class="metric-card" id="card-reserved">
+          <div class="metric-header">
+            <span class="metric-title">Active Reservations</span>
+            <span class="metric-icon reserved">⏳</span>
+          </div>
+          <div class="metric-value amber" id="val-reserved">0</div>
+          <div class="metric-sub">Held under 5m TTL lease</div>
+        </div>
+
+        <div class="metric-card" id="card-sold">
+          <div class="metric-header">
+            <span class="metric-title">Confirmed Sold</span>
+            <span class="metric-icon sold">🚀</span>
+          </div>
+          <div class="metric-value cyan" id="val-sold">0</div>
+          <div class="metric-sub">Successfully checked out</div>
+        </div>
+
+        <div class="metric-card" id="card-sellthrough">
+          <div class="metric-header">
+            <span class="metric-title">Sell-Through Rate</span>
+            <span class="metric-icon rate">📊</span>
+          </div>
+          <div class="metric-value purple" id="val-sellthrough">0.0%</div>
+          <div class="progress-bar-mini">
+            <div class="progress-fill" id="sellthrough-fill" style="width: 0%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Layout: Grid and Operations Dock -->
+      <div class="layout-two-column">
+        <!-- Live Stock Table -->
+        <section class="panel table-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Live SKU Inventory Feed</h2>
+              <p class="panel-desc">Real-time status tracking with continuous conservation invariant enforcement</p>
+            </div>
+            <div class="panel-badge green">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              INVARIANT: A + R + S == TOTAL
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="inventory-table">
+              <thead>
+                <tr>
+                  <th>SKU Identifier</th>
+                  <th>Product</th>
+                  <th>Total</th>
+                  <th>Available</th>
+                  <th>Reserved</th>
+                  <th>Sold</th>
+                  <th>Velocity</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-tbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Live Operations Dock -->
+        <section class="panel control-panel">
+          <div class="panel-header">
+            <h2>Simulate Live Reservation</h2>
+            <span class="panel-badge blue">INTERACTIVE</span>
+          </div>
+          <p class="panel-desc">Submit high-speed atomic stock holds directly through the gateway engine.</p>
+
+          <form id="reserve-form" class="reserve-form">
+            <div class="form-group">
+              <label for="sku-select">Target Flash Sale SKU</label>
+              <select id="sku-select" required>
+                <option value="">Select SKU...</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="user-input">Buyer Identity</label>
+              <input type="text" id="user-input" placeholder="e.g. buyer_speed_99" required value="buyer_vip_01">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="qty-input">Quantity</label>
+                <input type="number" id="qty-input" min="1" max="5" value="1" required>
+              </div>
+              <div class="form-group half">
+                <label for="ttl-input">TTL Lease (sec)</label>
+                <input type="number" id="ttl-input" min="10" max="600" value="300" required>
+              </div>
+            </div>
+
+            <button type="submit" id="submit-reserve-btn" class="btn btn-primary">
+              <span class="btn-text">Execute Atomic Hold</span>
+            </button>
+          </form>
+
+          <!-- Result Card -->
+          <div class="console-box" id="console-output">
+            <div class="console-title">Engine Activity Log</div>
+            <pre id="log-text">Ready. Awaiting gateway interaction...</pre>
+          </div>
+        </section>
+
+        <!-- Customer & Auth Management Panel (FLS-026, FLS-032, FLS-036) -->
+        <section class="panel auth-panel" id="auth-section">
+          <div class="panel-header">
+            <h2>Buyer Authentication & Limits</h2>
+            <span class="panel-badge green" id="auth-status-badge">GUEST</span>
+          </div>
+          <p class="panel-desc">Manage customer session tokens, account lockout status, and SKU limits.</p>
+
+          <form id="auth-login-form" class="auth-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="auth-username-input">Username / Email</label>
+              <input type="text" id="auth-username-input" placeholder="e.g. buyer_speed_99" value="vip_buyer_1">
+            </div>
+            <div class="form-group">
+              <label for="auth-password-input">Password</label>
+              <input type="password" id="auth-password-input" placeholder="••••••••" value="Secret123!">
+            </div>
+            <div class="form-row">
+              <button type="button" id="auth-login-btn" class="btn btn-primary half">
+                <span>Sign In / Authenticate</span>
+              </button>
+              <button type="button" id="auth-rotate-btn" class="btn btn-secondary half">
+                <span>Rotate Session</span>
+              </button>
+            </div>
+            <div id="auth-error-msg" class="auth-error-msg" style="display:none; color: var(--accent-red); margin-top: 8px;"></div>
+          </form>
+
+          <div class="console-box" id="user-limit-box" style="margin-top: 16px;">
+            <div class="console-title">Per-Account Limit Monitor</div>
+            <div id="user-limit-display" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">
+              Limit: 2 items/SKU • No active restrictions
+            </div>
+          </div>
+        </section>
+
+        <!-- Real-Time Operational Counters (FLS-125) -->
+        <section class="panel counters-panel" id="counters-section">
+          <div class="panel-header">
+            <h2>Real-Time Operational Counters</h2>
+            <span class="panel-badge cyan">LIVE TELEMETRY</span>
+          </div>
+          <div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); margin-top: 12px;">
+            <div class="metric-card">
+              <span class="metric-title">Orders Placed</span>
+              <div class="metric-value" id="val-orders-count">0</div>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Total GMV</span>
+              <div class="metric-value green" id="val-total-gmv">$0.00</div>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Active Queues</span>
+              <div class="metric-value amber" id="val-waiting-room">0</div>
+            </div>
+            <div class="metric-card">
+              <span class="metric-title">Campaigns</span>
+              <div class="metric-value purple" id="val-campaigns-count">0</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Low-Stock Alerts Banner (FLS-126) -->
+        <section class="panel alerts-panel" id="low-stock-alerts-container">
+          <div class="panel-header">
+            <h2>Low-Stock & Depletion Alerts</h2>
+            <span class="panel-badge amber" id="alerts-count-badge">0 ALERTS</span>
+          </div>
+          <div id="alerts-list" class="alerts-list" style="margin-top: 10px;">
+            <div class="alert-empty" style="color: var(--text-muted); font-size: 0.85rem;">All SKU inventory levels are within normal operating margins.</div>
+          </div>
+        </section>
+
+        <!-- Order Monitoring Table (FLS-123) -->
+        <section class="panel orders-panel" id="order-monitoring-panel" style="grid-column: 1 / -1;">
+          <div class="panel-header">
+            <h2>Live Order Stream & Fulfillment</h2>
+            <span class="panel-badge blue">EVENT STREAM</span>
+          </div>
+          <div class="table-responsive" style="margin-top: 12px; max-height: 280px; overflow-y: auto;">
+            <table class="inventory-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>SKU</th>
+                  <th>Qty</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="order-monitoring-tbody">
+                <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">No orders recorded yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <span>Flash Sale Inventory Gateway • Port 5180 Console • Invariant Integrity Verified</span>
+        <span>Distributed Consensus & In-Memory Locking Engine</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
