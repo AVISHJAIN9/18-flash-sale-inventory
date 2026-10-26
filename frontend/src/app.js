@@ -3,7 +3,9 @@
  * Polls inventory gateway, calculates sell-through metrics, and simulates reservations.
  */
 
-const API_BASE_URL = "http://localhost:8180";
+const API_BASE_URL = window.location.hostname.includes("github.io")
+  ? "https://aj-flash-sale-inventory.onrender.com"
+  : "http://localhost:8180";
 
 // Fallback seed catalog when API is not running or initial load
 const SEED_DATA = [
