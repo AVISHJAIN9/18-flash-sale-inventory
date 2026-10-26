@@ -27,14 +27,45 @@ from auth.service import (
 from sqlalchemy import select, func
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-global_waiting_room = WaitingRoomManager()
+from contextlib import asynccontextmanager
+from models.catalog import ProductRecord
+from models.inventory import InventoryRecord
+from db.database import init_db
 
-START_TIME = time.time()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    try:
+        async with AsyncSessionLocal() as session:
+            c_res = await session.execute(select(func.count(InventoryRecord.sku_id)))
+            count = c_res.scalar() or 0
+            if count == 0:
+                products = [
+                    ProductRecord(product_id="prod-cyber-shoe", title="Cyber Runner 2077", original_price_cents=12000),
+                    ProductRecord(product_id="prod-titan-gpu", title="RTX Titan Black Edition", original_price_cents=99900),
+                    ProductRecord(product_id="prod-fold-phone", title="Quantum Fold X", original_price_cents=79900),
+                    ProductRecord(product_id="prod-ultra-console", title="HyperStation Pro", original_price_cents=49900),
+                    ProductRecord(product_id="prod-smart-watch", title="ChronoPulse Smart Watch", original_price_cents=19900),
+                ]
+                session.add_all(products)
+                records = [
+                    InventoryRecord(sku_id="sku-shoe-cyber-01", product_id="prod-cyber-shoe", total_allocated=50, available=32, reserved=8, sold=10),
+                    InventoryRecord(sku_id="sku-gpu-titan-99", product_id="prod-titan-gpu", total_allocated=20, available=4, reserved=6, sold=10),
+                    InventoryRecord(sku_id="sku-phone-fold-x", product_id="prod-fold-phone", total_allocated=100, available=85, reserved=5, sold=10),
+                    InventoryRecord(sku_id="sku-console-ultra", product_id="prod-ultra-console", total_allocated=30, available=0, reserved=2, sold=28),
+                    InventoryRecord(sku_id="sku-watch-smart-v2", product_id="prod-smart-watch", total_allocated=75, available=60, reserved=5, sold=10),
+                ]
+                session.add_all(records)
+                await session.commit()
+    except Exception as e:
+        print(f"Warning: Demo inventory seed skipped: {e}")
+    yield
 
 app = FastAPI(
     title="Flash Sale Inventory Gateway",
     version="1.0.0",
-    description="Atomic inventory reservation and checkout gateway"
+    description="Atomic inventory reservation and checkout gateway",
+    lifespan=lifespan
 )
 
 app.add_middleware(
