@@ -6,4 +6,4 @@ services:
     autoDeploy: true
     rootDir: backend
     buildCommand: pip install -r requirements.txt && pip install uvicorn
-    startCommand: uvicorn src.api.app:app --host 0.0.0.0 --port $PORT
+    startCommand: PYTHONPATH=src uvicorn api.app:app --host 0.0.0.0 --port $PORT
